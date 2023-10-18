@@ -13,18 +13,6 @@ func main() {
 func longestOnes(nums []int, k int) int {
 	zeroCount, longestWindow, start := 0, 0, 0
 
-	//if k == 0 && zeroCount == len(nums)-1 {
-	//	return 0
-	//}
-	//if k == 0 {
-	//	for i := 0; i < len(nums); i++ {
-	//		if nums[i] == 1 {
-	//			longestWindow = max(longestWindow, nums[i])
-	//		}
-	//	}
-	//	return longestWindow
-	//}
-
 	for i := 0; i < len(nums); i++ {
 		if nums[i] == 0 {
 			zeroCount++
