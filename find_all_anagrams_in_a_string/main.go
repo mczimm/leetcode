@@ -5,13 +5,14 @@ import "fmt"
 func main() {
 	fmt.Println(findAnagrams("cbaebabacd", "abc")) //[0,6]
 	fmt.Println(findAnagrams("baa", "aa"))         //[1]
+	fmt.Println(findAnagrams("bab", "abc"))        //[]
 }
 
-// My attempt: Time Limit Exceeded
+// My attempt
 func findAnagrams(s string, p string) []int {
 	var res []int
 	mapP := make(map[byte]int)
-	mapTMP := make(map[byte]int)
+	mapS := make(map[byte]int)
 
 	if len(s) < len(p) {
 		return res
@@ -22,26 +23,32 @@ func findAnagrams(s string, p string) []int {
 	}
 
 	for i := 0; i < len(s); i++ {
-		for k, v := range mapP {
-			mapTMP[k] = v
+		if i-len(p) >= 0 {
+			mapS[s[i-len(p)]]--
+
+			if mapS[s[i-len(p)]] == 0 {
+				delete(mapS, s[i-len(p)])
+			}
 		}
-		pointer := i
-		exists := true
-		if len(s)-pointer >= len(p) {
-			for j := 0; j < len(p); j++ {
-				if mapTMP[s[pointer]] == 0 {
-					delete(mapTMP, s[pointer])
-				}
-				if _, ok := mapTMP[s[pointer]]; !ok {
+
+		mapS[s[i]]++
+
+		if len(mapP) == len(mapS) {
+			exists := true
+
+			for k, val := range mapP {
+				if v, ok := mapS[k]; !ok {
 					exists = false
 					break
 				} else {
-					mapTMP[s[pointer]]--
+					if v != val {
+						exists = false
+						break
+					}
 				}
-				pointer++
 			}
 			if exists {
-				res = append(res, i)
+				res = append(res, i+1-len(p))
 			}
 		}
 	}
