@@ -1,11 +1,16 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/big"
+)
 
 func main() {
-	fmt.Println(addBinary("11", "1"))
+	fmt.Println(addBinary("11", "1"))  //100
+	fmt.Println(addBinary2("11", "1")) //100
 }
 
+// My first attempt
 func addBinary(a string, b string) string {
 	if len(a) > len(b) {
 		return addBinary(b, a)
@@ -60,4 +65,12 @@ func addBinary(a string, b string) string {
 		answer = "1" + answer
 	}
 	return answer
+}
+
+// Second attempt from submittions: https://leetcode.com/problems/add-binary/solutions/3715164/math-big/
+func addBinary2(a string, b string) string {
+	num1, _ := new(big.Int).SetString(a, 2)
+	num2, _ := new(big.Int).SetString(b, 2)
+	num1.Add(num1, num2)
+	return num1.Text(2)
 }
