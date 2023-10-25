@@ -3,18 +3,14 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println(minStartValue([]int{-3, 2, -3, 4, 2})) //5
-	fmt.Println(minStartValue([]int{1, 2}))            //1
-	fmt.Println(minStartValue([]int{1, -2, -3}))       //5
+	//fmt.Println(minStartValue([]int{-3, 2, -3, 4, 2})) //5
+	//fmt.Println(minStartValue([]int{1, 2}))            //1
+	fmt.Println(minStartValue([]int{1, -2, -3})) //5
 }
 
 // My first attempt
 func minStartValue(nums []int) int {
 	startValue := 1
-
-	for startValue+nums[0] <= 0 {
-		startValue++
-	}
 
 	for {
 		if check(nums, startValue) {
