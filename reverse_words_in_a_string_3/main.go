@@ -13,10 +13,11 @@ func reverseWords(s string) string {
 	strSlice := strings.Split(s, " ")
 	var res string
 
-	for i := 0; i < len(strSlice); i++ {
-		tmp := strSlice[i]
-		for j := len(tmp) - 1; j >= 0; j-- {
-			res += strings.Join([]string{string(tmp[j])}, "")
+	for i, word := range strSlice {
+		//tmp := word
+		for j := len(word) - 1; j >= 0; j-- {
+			//res += strings.Join([]string{string(tmp[j])}, "")
+			res += string(word[j])
 		}
 		if i < len(strSlice)-1 {
 			res += " "
