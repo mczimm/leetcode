@@ -9,7 +9,7 @@ func main() {
 	fmt.Println(maxProfit([]int{1, 2, 3, 0, 2})) // 3
 }
 
-// From the youtube 16.11.23
+// From the youtube 16.11.23b
 func maxProfit(prices []int) int {
 	curBuy, curSell, coolDown := math.MaxFloat64*-1, float64(0), float64(0)
 
