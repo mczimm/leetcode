@@ -1,43 +1,81 @@
 package main
 
-import "fmt"
-
-/*
-	два указателя
-	цикл по строке
-	если ук1 == ук2, то увелич стетчик
-	иначе если счетчие больше 1, то добавить в результат букву и цифру
-	иначе тольео букву
-*/
+import (
+	"fmt"
+	"strings"
+	"unicode"
+)
 
 func main() {
-	str := "AAAABBBCCXYZDDDDEEEFFFAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBBXX"
-	var res string
+	str := "AAAABBBCCXYZDDDDEEEFFFAAAAAAXX" // A4B3C2XYZD4E3F3A6X2
+	fmt.Println(rle(str))
+	fmt.Println(rle2(str))
+}
+
+func rle(s string) string {
 	right := 1
 	cnt := 1
-	var last_ch string
+	res := ""
+	lastCh := ""
 
-	for left := 0; left < len(str)-1; left++ {
-		if str[left] == str[right] {
+	for left := 0; left < len(s)-1; left++ {
+		if s[left] == s[right] {
 			cnt++
 		} else {
 			if cnt > 1 {
-				res += string(str[left]) + fmt.Sprint(cnt)
+				res += string(s[left]) + fmt.Sprint(cnt)
 				cnt = 1
 			} else {
-				res += string(str[left])
+				res += string(s[left])
 			}
 		}
 		right++
 	}
 
-	last_ch = string(str[len(str)-1:])
+	lastCh = s[len(s)-1:]
 
 	if cnt > 1 {
-		res += last_ch + fmt.Sprint(cnt)
+		res += lastCh + fmt.Sprint(cnt)
 	} else {
-		res += last_ch
+		res += lastCh
 	}
-	fmt.Println(res) //A4B3C2XYZD4E3F3A6B28
+	return res
+}
 
+func rle2(s string) string {
+	if len(s) == 0 {
+		fmt.Println("")
+		return ""
+	}
+
+	// Validate input
+	for _, ch := range s {
+		if !unicode.IsUpper(ch) {
+			fmt.Println("Invalid input: Only uppercase English letters are allowed.")
+			return ""
+		}
+	}
+
+	var builder strings.Builder
+	cnt := 1
+
+	for i := 1; i < len(s); i++ {
+		if s[i] == s[i-1] {
+			cnt++
+		} else {
+			builder.WriteByte(s[i-1])
+			if cnt > 1 {
+				builder.WriteString(fmt.Sprint(cnt))
+			}
+			cnt = 1
+		}
+	}
+
+	// Add the last character and its count
+	builder.WriteByte(s[len(s)-1])
+	if cnt > 1 {
+		builder.WriteString(fmt.Sprint(cnt))
+	}
+
+	return builder.String()
 }
