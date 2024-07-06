@@ -14,7 +14,8 @@ func main() {
 	three := &ListNode{Val: 1}
 	two := &ListNode{Val: 0, Next: three}
 	head := &ListNode{Val: 1, Next: two}
-	fmt.Println(getDecimalValue(head)) //5
+	fmt.Println(getDecimalValue(head))  //5
+	fmt.Println(getDecimalValue2(head)) //5
 }
 
 func getDecimalValue(head *ListNode) int {
@@ -37,4 +38,13 @@ func conv(binary []int) int {
 	}
 
 	return decimal
+}
+
+func getDecimalValue2(head *ListNode) int {
+	res := 0
+	for head != nil { //1 0 1
+		res = res*2 + head.Val //1 2 5
+		head = head.Next
+	}
+	return res
 }
