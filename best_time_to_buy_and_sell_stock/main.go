@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 func main() {
 	fmt.Println(maxProfit2([]int{7, 1, 5, 3, 6, 4}))    //5
@@ -40,7 +43,8 @@ func maxProfit(prices []int) int {
 // 13.11.24
 func maxProfit2(prices []int) int {
 	var maxProfit int
-	minPrice := int(^uint(0) >> 1) //9223372036854775807
+	//minPrice := int(^uint(0) >> 1) //9223372036854775807
+	minPrice := math.MaxInt64
 
 	for i := 0; i < len(prices); i++ {
 		if prices[i] < minPrice {
