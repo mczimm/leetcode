@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	fmt.Println(coinChange([]int{1, 2, 5}, 11))             // 3
+	fmt.Println(coinChange2([]int{1, 2, 5}, 11))            // 3
 	fmt.Println(coinChange([]int{2, 5, 10, 1}, 27))         // 4
 	fmt.Println(coinChange([]int{186, 419, 83, 408}, 6249)) // 20
 }
@@ -40,4 +40,34 @@ func Min(a int, b int) int {
 	} else {
 		return b
 	}
+}
+
+func coinChange2(coins []int, amount int) int {
+	// Initialize the DP array with a large value (infinity).
+	dp := make([]int, amount+1)
+	for i := range dp {
+		dp[i] = math.MaxInt32
+	}
+	dp[0] = 0 // Base case: no coins are needed to make amount 0.
+
+	// Fill the DP array
+	for _, coin := range coins {
+		for i := coin; i <= amount; i++ {
+			dp[i] = min(dp[i], dp[i-coin]+1)
+		}
+	}
+
+	// If dp[amount] is still the large value, return -1 (impossible case).
+	if dp[amount] == math.MaxInt32 {
+		return -1
+	}
+	return dp[amount]
+}
+
+// Helper function to find the minimum of two integers.
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
 }
