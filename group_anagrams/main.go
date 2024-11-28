@@ -1,13 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+	"strings"
+)
 
 func main() {
 	//[["bat"],["nat","tan"],["ate","eat","tea"]]
-	fmt.Println(groupAnagrams([]string{"eat", "tea", "tan", "ate", "nat", "bat"}))
+	fmt.Println(groupAnagrams2([]string{"eat", "tea", "tan", "ate", "nat", "bat"}))
 	//[["max"],["buy"],["doc"],["may"],["ill"],["duh"],["tin"],["bar"],["pew"],["cab"]]
-	fmt.Println(groupAnagrams([]string{"cab", "tin", "pew", "duh", "may", "ill", "buy", "bar", "max", "doc"}))
-	fmt.Println(groupAnagrams([]string{"duh", "ill"})) //same sum
+	fmt.Println(groupAnagrams2([]string{"cab", "tin", "pew", "duh", "may", "ill", "buy", "bar", "max", "doc"}))
+	fmt.Println(groupAnagrams2([]string{"duh", "ill"})) //same sum
 }
 
 // My first attempt
@@ -28,4 +32,24 @@ func groupAnagrams(strs []string) [][]string {
 		res = append(res, v)
 	}
 	return res
+}
+
+func groupAnagrams2(strs []string) [][]string {
+	tmp := make(map[string][]string)
+
+	for _, str := range strs {
+		key := sortString(str)
+		tmp[key] = append(tmp[key], str)
+	}
+	var res [][]string
+	for _, i := range tmp {
+		res = append(res, i)
+	}
+	return res
+}
+
+func sortString(in string) string {
+	s := strings.Split(in, "")
+	sort.Strings(s)
+	return strings.Join(s, "")
 }
