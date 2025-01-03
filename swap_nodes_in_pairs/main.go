@@ -10,7 +10,8 @@ func main() {
 	three := &ListNode{Val: 3, Next: four}
 	two := &ListNode{Val: 2, Next: three}
 	head := &ListNode{Val: 1, Next: two}
-	println(swapPairs(head)) //[2,1,4,3]
+	println(swapPairs(head))  //[2,1,4,3]
+	println(swapPairs2(head)) //[2,1,4,3]
 }
 
 func swapPairs(head *ListNode) *ListNode {
@@ -27,4 +28,20 @@ func swapPairs(head *ListNode) *ListNode {
 		cur = cur.Next
 	}
 	return dummy.Next
+}
+
+//recursion
+func swapPairs2(head *ListNode) *ListNode {
+	// If the list has no node or has only one node left.
+	if head == nil || head.Next == nil {
+		return head
+	}
+	// Nodes to be swapped
+	firstNode := head
+	secondNode := head.Next
+	// Swapping
+	firstNode.Next = swapPairs(secondNode.Next)
+	secondNode.Next = firstNode
+	// Now the head is the second node
+	return secondNode
 }
