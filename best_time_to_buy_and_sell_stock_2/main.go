@@ -12,7 +12,7 @@ func main() {
 }
 
 // From the youtube 16.11.23
-func maxProfit(prices []int) int {
+func maxProfit2(prices []int) int {
 
 	curBuy, curSell := math.MaxFloat64*-1, float64(0)
 
@@ -24,4 +24,15 @@ func maxProfit(prices []int) int {
 	}
 
 	return int(curSell)
+}
+
+func maxProfit(prices []int) int {
+	var sell int
+
+	for i := 0; i < len(prices)-1; i++ {
+		if prices[i] < prices[i+1] {
+			sell += prices[i+1] - prices[i]
+		}
+	}
+	return sell
 }
