@@ -2,7 +2,7 @@ package main
 
 func main() {
 	println(findMin([]int{3, 4, 5, 1, 2})) // 1
-	println(findMin([]int{3, 4, 5, 1, 2})) // 1
+	println(findMin([]int{1}))             // 1
 }
 
 func findMin(nums []int) int {

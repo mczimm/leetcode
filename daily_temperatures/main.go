@@ -1,10 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
 	fmt.Println(dailyTemperatures2([]int{73, 74, 75, 71, 69, 72, 76, 73})) // [1, 1, 4, 2, 1, 1, 0, 0]
-	fmt.Println(dailyTemperatures2([]int{30, 40, 50, 60}))                 // [1,1,1,0]
+	fmt.Println(dailyTemperatures3([]int{30, 40, 50, 60}))                 // [1,1,1,0]
 }
 
 // time limit exceeded
@@ -19,6 +21,7 @@ func dailyTemperatures(temperatures []int) []int {
 			}
 			if j == len(temperatures)-1 {
 				res = append(res, 0)
+				break
 			}
 			continue
 		}
@@ -41,5 +44,18 @@ func dailyTemperatures2(temps []int) []int {
 		stack = append(stack, i)
 	}
 
+	return results
+}
+
+func dailyTemperatures3(temps []int) []int {
+	results := make([]int, len(temps))
+	stack := make([]int, 0)
+
+	for i, temp := range temps {
+		if temps[stack[0]] < temp {
+			results[stack[0]] = i
+			
+		}
+	}
 	return results
 }
