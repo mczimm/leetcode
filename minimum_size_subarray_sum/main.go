@@ -91,3 +91,21 @@ func minSubArrayLen3(target int, nums []int) int {
 	}
 	return minLength + 1
 }
+
+func minSubArrayLen4(target int, nums []int) int {
+	var left, currSum int
+	res := math.MaxInt32
+
+	for right := 0; right < len(nums); right++ {
+		currSum += nums[right]
+		for currSum >= target {
+			res = min(res, right-left+1)
+			currSum -= nums[left]
+			left++
+		}
+	}
+	if res == math.MaxInt32 {
+		return 0
+	}
+	return res
+}
