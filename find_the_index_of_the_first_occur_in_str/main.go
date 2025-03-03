@@ -31,3 +31,24 @@ func strStr(haystack string, needle string) int {
 
 	return -1
 }
+
+func strStr2(haystack string, needle string) int {
+	h := len(haystack)
+	n := len(needle)
+	var found bool
+
+	for w := 0; w <= h-n; w++ {
+		for i := 0; i < n; i++ {
+			if needle[i] != haystack[w+i] {
+				found = false
+				break
+			} else {
+				found = true
+			}
+		}
+		if found {
+			return w
+		}
+	}
+	return -1
+}
