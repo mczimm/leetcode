@@ -8,8 +8,12 @@ import (
 )
 
 func main() {
+	fmt.Println(minStoneSum([]int{5, 4, 9}, 2))     // 12
+	fmt.Println(minStoneSum([]int{4, 3, 6, 7}, 3))  // 12
 	fmt.Println(minStoneSum2([]int{5, 4, 9}, 2))    // 12
 	fmt.Println(minStoneSum2([]int{4, 3, 6, 7}, 3)) // 12
+	fmt.Println(minStoneSum3([]int{5, 4, 9}, 2))    // 12
+	fmt.Println(minStoneSum3([]int{4, 3, 6, 7}, 3)) // 12
 }
 
 func minStoneSum(piles []int, k int) int {
@@ -75,5 +79,41 @@ func minStoneSum2(piles []int, k int) int {
 	for _, pile := range h {
 		sum += pile
 	}
+	return sum
+}
+
+func minStoneSum3(piles []int, k int) int {
+	freq := make(map[int]int)
+	maxPile := 0
+	sum := 0
+
+	// Count frequencies and find max pile
+	for _, pile := range piles {
+		freq[pile]++
+		sum += pile
+		if pile > maxPile {
+			maxPile = pile
+		}
+	}
+
+	// Process k operations
+	for i := 0; i < k; i++ {
+		// Find current max pile
+		for maxPile > 0 && freq[maxPile] == 0 {
+			maxPile--
+		}
+		if maxPile == 0 {
+			break
+		}
+
+		// Remove one from frequency
+		freq[maxPile]--
+
+		// Calculate new pile size and update
+		newSize := maxPile - maxPile/2
+		freq[newSize]++
+		sum -= maxPile / 2
+	}
+
 	return sum
 }
